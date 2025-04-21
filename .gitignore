@@ -63,7 +63,6 @@ build/
 *.tmp
 
 ### Configuração específica do ambiente ###
-*.env
 *.properties.local
 
 ### Diretórios do cache do Lombok ###
