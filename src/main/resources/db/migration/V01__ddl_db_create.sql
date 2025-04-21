@@ -7,64 +7,14 @@ SET search_path TO medisync;
 -- Criação da extensão para UUID
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Definição do tipo ENUM para especialidades médicas
-CREATE TYPE especialidade_enum AS ENUM (
-    'Acupuntura',
-    'Alergia e Imunologia',
-    'Anatomia Patológica',
-    'Anestesiologia',
-    'Angiologia',
-    'Cancerologia',
-    'Cardiologia',
-    'Cirurgia Cardiovascular',
-    'Cirurgia da Mão',
-    'Cirurgia de Cabeça e Pescoço',
-    'Cirurgia do Aparelho Digestivo',
-    'Cirurgia Geral',
-    'Cirurgia Pediátrica',
-    'Cirurgia Plástica',
-    'Cirurgia Torácica',
-    'Cirurgia Vascular',
-    'Clínica Médica',
-    'Coloproctologia',
-    'Dermatologia',
-    'Endocrinologia e Metabologia',
-    'Endoscopia',
-    'Gastroenterologia',
-    'Genética Médica',
-    'Geriatria',
-    'Ginecologia e Obstetrícia',
-    'Hematologia e Hemoterapia',
-    'Homeopatia',
-    'Infectologia',
-    'Mastologia',
-    'Medicina de Emergência',
-    'Medicina de Família e Comunidade',
-    'Medicina do Trabalho',
-    'Medicina do Tráfego',
-    'Medicina Esportiva',
-    'Medicina Física e Reabilitação',
-    'Medicina Intensiva',
-    'Medicina Legal e Perícia Médica',
-    'Medicina Nuclear',
-    'Medicina Preventiva e Social',
-    'Nefrologia',
-    'Neurocirurgia',
-    'Neurologia',
-    'Nutrologia',
-    'Oftalmologia',
-    'Ortopedia e Traumatologia',
-    'Otorrinolaringologia',
-    'Patologia',
-    'Patologia Clínica/Medicina Laboratorial',
-    'Pediatria',
-    'Pneumologia',
-    'Psiquiatria',
-    'Radiologia e Diagnóstico por Imagem',
-    'Radioterapia',
-    'Reumatologia',
-    'Urologia'
-    );
+-- Tabela de especialidades
+CREATE TABLE especialidade (
+                        id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+                        descricao VARCHAR(100) NOT NULL,
+                        criado_em TIMESTAMP NOT NULL,
+                        ultima_alteracao TIMESTAMP NOT NULL,
+                        CONSTRAINT uk_especialidade_descricao UNIQUE (descricao)
+);
 
 -- Tabela de usuários
 CREATE TABLE usuario (
@@ -87,11 +37,12 @@ CREATE TABLE usuario (
 CREATE TABLE medico (
                         id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
                         id_usuario UUID NOT NULL,
-                        especialidade especialidade_enum NOT NULL,
+                        id_especialidade UUID NOT NULL,
                         crm VARCHAR(50) NOT NULL,
                         criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         ultima_alteracao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         CONSTRAINT fk_medico_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+                        CONSTRAINT fk_medico_especialidade FOREIGN KEY (id_especialidade) REFERENCES especialidade(id),
                         CONSTRAINT uk_medico_usuario UNIQUE (id_usuario)
 );
 
@@ -109,11 +60,12 @@ CREATE TABLE paciente (
 CREATE TABLE enfermeiro (
                         id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
                         id_usuario UUID NOT NULL,
-                        especialidade especialidade_enum NOT NULL,
+                        id_especialidade UUID NOT NULL,
                         coren VARCHAR(50) NOT NULL,
                         criado_em TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         ultima_alteracao TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         CONSTRAINT fk_enfermeiro_usuario FOREIGN KEY (id_usuario) REFERENCES usuario(id),
+                        CONSTRAINT fk_enfermeiro_especialidade FOREIGN KEY (id_especialidade) REFERENCES especialidade(id),
                         CONSTRAINT uk_enfermeiro_usuario UNIQUE (id_usuario)
 );
 
