@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -37,16 +38,16 @@ public class Usuario {
     @Column(name = "cpf", nullable = false)
     private String cpf;
 
-    @Column(name = "data_nascimento", nullable = false)
-    private LocalDate data_nascimento;
+    @Column(name = "dataNascimento", nullable = false)
+    private LocalDate dataNascimento;
 
     @Column(name = "telefone")
     private String telefone;
 
-    @Column(name = "criado_em", nullable = false)
-    private LocalDate criado_em = LocalDate.now();
+    @Column(name = "criadoEm", nullable = false)
+    private LocalDateTime criadoEm = LocalDateTime.now();
 
-    @Column(name = "ultima_alteracao", nullable = false)
-    private LocalDate ultima_alteracao = LocalDate.now();
+    @Column(name = "ultimaAlteracao", nullable = false)
+    private LocalDateTime ultimaAlteracao = LocalDateTime.now();
 
 }
