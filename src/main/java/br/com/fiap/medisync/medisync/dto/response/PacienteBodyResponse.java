@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @Schema(description = "DTO para retorno dos dados de um paciente")
-public class PacienteResponseDTO {
+public class PacienteBodyResponse {
 
         @Schema(description = "ID do paciente", example = "b1c2f964-8e2f-4de8-812b-7ac86e1a3e53")
         private UUID id;
@@ -29,7 +29,7 @@ public class PacienteResponseDTO {
         @Schema(description = "Data da última alteração do paciente", example = "2025-04-26")
         private LocalDateTime ultimaAlteracao;
 
-        public PacienteResponseDTO(Paciente paciente) {
+        public PacienteBodyResponse(Paciente paciente) {
                 this.id = paciente.getId();
                 this.usuario = paciente.getUsuario() != null ? new UsuarioDTO(paciente.getUsuario()) : null;
                 this.criadoEm = paciente.getCriadoEm();

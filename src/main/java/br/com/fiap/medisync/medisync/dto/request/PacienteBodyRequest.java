@@ -12,10 +12,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "DTO para criação de um novo paciente")
-public class PacienteRequestDTO {
+public class PacienteBodyRequest {
 
         @NotNull(message = "Usuário é obrigatório")
         @Schema(description = "Dados do usuário associado ao paciente", requiredMode = Schema.RequiredMode.REQUIRED)
-        private UsuarioRequestDTO usuario;
+        private UsuarioBodyRequest usuario;
 
 }

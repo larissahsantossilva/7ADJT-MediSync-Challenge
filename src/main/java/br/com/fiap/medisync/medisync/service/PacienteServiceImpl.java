@@ -74,7 +74,7 @@ public class PacienteServiceImpl {
         }
     }
 
-    public void excluirPaciente(UUID id) {
+    public void excluirPacientePorId(UUID id) {
         try {
             pacienteRepository.deleteById(id);
         } catch (DataAccessException e) {

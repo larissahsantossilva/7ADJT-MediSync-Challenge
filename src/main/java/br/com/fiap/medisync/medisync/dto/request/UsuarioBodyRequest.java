@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "DTO para criação de um novo usuário")
-public class UsuarioRequestDTO {
+public class UsuarioBodyRequest {
 
         @NotBlank(message = "Nome do usuário não pode ser vazio.")
         @NotNull(message = "Nome do usuário não pode ser nulo.")

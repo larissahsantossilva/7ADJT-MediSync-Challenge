@@ -1,6 +1,6 @@
 package br.com.fiap.medisync.medisync.utils;
 
-import br.com.fiap.medisync.medisync.dto.request.PacienteRequestDTO;
+import br.com.fiap.medisync.medisync.dto.request.PacienteBodyRequest;
 import br.com.fiap.medisync.medisync.exception.ResourceNotFoundException;
 import br.com.fiap.medisync.medisync.model.Paciente;
 import org.modelmapper.ModelMapper;
@@ -19,7 +19,7 @@ public class MediSyncUtils {
         }
     }
 
-    public static Paciente convertToPaciente(PacienteRequestDTO pacienteRequest) {
+    public static Paciente convertToPaciente(PacienteBodyRequest pacienteRequest) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(pacienteRequest, Paciente.class);
     }
