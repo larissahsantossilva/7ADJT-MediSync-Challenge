@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 
@@ -23,16 +22,10 @@ public class PacienteBodyResponse {
         @Schema(description = "Dados do usuário associado")
         private UsuarioDTO usuario;
 
-        @Schema(description = "Data de criação do paciente", example = "2025-04-26")
-        private LocalDateTime criadoEm;
-
-        @Schema(description = "Data da última alteração do paciente", example = "2025-04-26")
-        private LocalDateTime ultimaAlteracao;
 
         public PacienteBodyResponse(Paciente paciente) {
                 this.id = paciente.getId();
                 this.usuario = paciente.getUsuario() != null ? new UsuarioDTO(paciente.getUsuario()) : null;
-                this.criadoEm = paciente.getCriadoEm();
-                this.ultimaAlteracao = paciente.getUltimaAlteracao();
         }
+
 }

@@ -3,7 +3,7 @@ package br.com.fiap.medisync.medisync.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -22,10 +22,10 @@ public class Especialidade {
     @Column(name = "descricao", nullable = false)
     private String descricao;
 
-    @Column(name = "criado_em", nullable = false)
-    private LocalDate criado_em = LocalDate.now();
+    @Column(name = "criadoEm", nullable = false)
+    private LocalDateTime criadoEm = LocalDateTime.now();
 
-    @Column(name = "ultima_alteracao", nullable = false)
-    private LocalDate ultima_alteracao = LocalDate.now();
+    @Column(name = "ultimaAlteracao", nullable = false)
+    private LocalDateTime ultimaAlteracao = LocalDateTime.now();
 
 }
