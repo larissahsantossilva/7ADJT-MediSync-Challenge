@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Table(name = "paciente", schema = "medisync")
 public class Paciente {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
@@ -27,5 +28,6 @@ public class Paciente {
 
     @Column(name = "ultimaAlteracao", nullable = false)
     private LocalDateTime ultimaAlteracao = LocalDateTime.now();
+
 }
 

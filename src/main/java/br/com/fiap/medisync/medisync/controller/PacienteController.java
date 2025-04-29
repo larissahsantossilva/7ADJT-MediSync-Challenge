@@ -4,13 +4,14 @@ import br.com.fiap.medisync.medisync.dto.request.PacienteBodyRequest;
 import br.com.fiap.medisync.medisync.dto.response.PacienteBodyResponse;
 import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Paciente;
-import br.com.fiap.medisync.medisync.service.PacienteServiceImpl;
+import br.com.fiap.medisync.medisync.service.PacienteService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -28,16 +29,13 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(PacienteController.V1_PACIENTE)
-@Tag(name = "PacienteController", description = "Controller para CRUD de restaurantes.")
+@AllArgsConstructor
+@Tag(name = "PacienteController", description = "Controller para CRUD de paciente.")
 public class PacienteController {
 
     public static final String V1_PACIENTE = "/api/v1/pacientes";
     private static final Logger logger = getLogger(PacienteController.class);
-    private final PacienteServiceImpl pacienteService;
-
-    public PacienteController(PacienteServiceImpl pacienteService) {
-        this.pacienteService = pacienteService;
-    }
+    private final PacienteService pacienteService;
 
     @Operation(
             description = "Busca todos os pacientes de forma paginada.",

@@ -5,6 +5,7 @@ import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Paciente;
 import br.com.fiap.medisync.medisync.model.Usuario;
 import br.com.fiap.medisync.medisync.repository.PacienteRepository;
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -19,14 +20,11 @@ import static br.com.fiap.medisync.medisync.utils.MediSyncUtils.uuidValidator;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
-public class PacienteServiceImpl {
+@AllArgsConstructor
+public class PacienteService {
 
-    private static final Logger logger = getLogger(PacienteServiceImpl.class);
+    private static final Logger logger = getLogger(PacienteService.class);
     private final PacienteRepository pacienteRepository;
-
-    public PacienteServiceImpl(PacienteRepository pacienteRepository) {
-        this.pacienteRepository = pacienteRepository;
-    }
 
     public Page<Paciente> listarPacientes(int page, int size) {
         return pacienteRepository.findAll(PageRequest.of(page, size));
@@ -62,6 +60,7 @@ public class PacienteServiceImpl {
             if (usuarioAtualizado.getCpf() != null) usuarioExistente.setCpf(usuarioAtualizado.getCpf());
             if (usuarioAtualizado.getTelefone() != null) usuarioExistente.setTelefone(usuarioAtualizado.getTelefone());
             if (usuarioAtualizado.getDataNascimento() != null) usuarioExistente.setDataNascimento(usuarioAtualizado.getDataNascimento());
+            if (usuarioAtualizado.getUltimaAlteracao() != null) usuarioExistente.setUltimaAlteracao(LocalDateTime.now());
         }
 
         pacienteExistente.setUltimaAlteracao(LocalDateTime.now());
@@ -82,4 +81,5 @@ public class PacienteServiceImpl {
             throw new UnprocessableEntityException(ERRO_AO_DELETAR_PACIENTE);
         }
     }
+
 }

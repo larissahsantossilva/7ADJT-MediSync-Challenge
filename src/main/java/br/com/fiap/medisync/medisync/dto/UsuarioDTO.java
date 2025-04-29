@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -37,11 +36,6 @@ public class UsuarioDTO {
     @Schema(description = "Telefone do usuário", example = "11999999999")
     private String telefone;
 
-    @Schema(description = "Data de criação do usuário", example = "2025-04-26")
-    private LocalDateTime criadoEm;
-
-    @Schema(description = "Data da última alteração do usuário", example = "2025-04-26")
-    private LocalDateTime ultimaAlteracao;
 
     public UsuarioDTO(Usuario usuario){
             this.id = usuario.getId();
@@ -51,8 +45,6 @@ public class UsuarioDTO {
             this.cpf = usuario.getCpf();
             this.dataNascimento = usuario.getDataNascimento();
             this.telefone = usuario.getTelefone();
-            this.criadoEm = usuario.getCriadoEm();
-            this.ultimaAlteracao = usuario.getUltimaAlteracao();
     }
 
 }
