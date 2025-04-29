@@ -5,7 +5,9 @@ import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Especialidade;
 import br.com.fiap.medisync.medisync.model.Medico;
 import br.com.fiap.medisync.medisync.model.Usuario;
+import br.com.fiap.medisync.medisync.repository.EspecialidadeRepository;
 import br.com.fiap.medisync.medisync.repository.MedicoRepository;
+import br.com.fiap.medisync.medisync.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -26,6 +28,8 @@ public class MedicoService {
 
     private static final Logger logger = getLogger(MedicoService.class);
     private final MedicoRepository medicoRepository;
+    private final EspecialidadeRepository especialidadeRepository;
+    private final UsuarioRepository usuarioRepository;
 
 
     public Page<Medico> listarMedicos(int page, int size) {
@@ -40,6 +44,19 @@ public class MedicoService {
 
     public Medico criarMedico(Medico medico) {
         try {
+
+            Especialidade especialidadePersistida = especialidadeRepository
+                    .findByDescricao(medico.getEspecialidade().getDescricao())
+                    .orElseGet(() -> especialidadeRepository.save(medico.getEspecialidade()));
+
+            medico.setEspecialidade(especialidadePersistida);
+
+            Usuario usuarioPersistido = usuarioRepository
+                    .findByCpf(medico.getUsuario().getCpf())
+                    .orElseGet(() -> usuarioRepository.save(medico.getUsuario()));
+
+            medico.setUsuario(usuarioPersistido);
+
             return medicoRepository.save(medico);
         } catch (DataAccessException e) {
             logger.error(ERRO_AO_CRIAR_MEDICO, e);
