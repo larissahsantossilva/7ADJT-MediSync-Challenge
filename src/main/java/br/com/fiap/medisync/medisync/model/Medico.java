@@ -27,7 +27,7 @@ public class Medico {
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "especialidade", foreignKey = @ForeignKey(name = "fk_medico_especialidade"))
+    @JoinColumn(name = "idEspecialidade", foreignKey = @ForeignKey(name = "fk_medico_especialidade"))
     private Especialidade especialidade;
 
     @Column(name = "crm", nullable = false)
