@@ -16,10 +16,10 @@ import lombok.Setter;
 @Schema(description = "DTO para criação de um novo médico")
 public class EspecialidadeBodyRequest {
 
-    @NotBlank(message = "Especialidade não pode ser vazio.")
-    @NotNull(message = "Especialidade não pode ser nulo.")
-    @Schema(description = "Especialidade do médico", example = "Pediatria", requiredMode = Schema.RequiredMode.REQUIRED)
+    @NotBlank(message = "Descrição não pode ser vazio.")
+    @NotNull(message = "Descrição não pode ser nulo.")
+    @Schema(description = "Descrição do médico", example = "Pediatria", requiredMode = Schema.RequiredMode.REQUIRED)
     @Size(min = 1, max = 100)
-    private String especialidade;
+    private String descricao;
 
 }

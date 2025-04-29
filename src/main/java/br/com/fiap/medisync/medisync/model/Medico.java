@@ -22,12 +22,12 @@ public class Medico {
     @Column(name = "id", nullable = false, unique = true)
     private UUID id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "idUsuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_medico_usuario"))
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "especialidade", nullable = false, foreignKey = @ForeignKey(name = "fk_medico_especialidade"))
+    @JoinColumn(name = "especialidade", foreignKey = @ForeignKey(name = "fk_medico_especialidade"))
     private Especialidade especialidade;
 
     @Column(name = "crm", nullable = false)
