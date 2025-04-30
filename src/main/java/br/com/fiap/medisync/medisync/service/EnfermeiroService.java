@@ -1,15 +1,10 @@
 package br.com.fiap.medisync.medisync.service;
 
-import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.ENFERMEIRO_NAO_ENCONTRADO;
-import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.ERRO_AO_ALTERAR_ENFERMEIRO;
-import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.ERRO_AO_CRIAR_MEDICO;
-import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.ERRO_AO_DELETAR_ENFERMEIRO;
-import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.ID_NAO_ENCONTRADO;
+import static br.com.fiap.medisync.medisync.utils.MediSyncConstants.*;
 import static br.com.fiap.medisync.medisync.utils.MediSyncUtils.uuidValidator;
 import static java.time.LocalDateTime.now;
 import static org.slf4j.LoggerFactory.getLogger;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -45,12 +40,11 @@ public class EnfermeiroService {
     public Enfermeiro buscarEnfermeiroPorId(UUID id) {
         uuidValidator(id);
         return enfermeiroRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(ID_NAO_ENCONTRADO));
+                new ResourceNotFoundException(ENFERMEIRO_NAO_ENCONTRADO));
     }
 
     public Enfermeiro criarEnfermeiro (Enfermeiro enfermeiro) {
         try {
-
             Especialidade especialidadePersistida = especialidadeRepository
                     .findByDescricao(enfermeiro.getEspecialidade().getDescricao())
                     .orElseGet(() -> especialidadeRepository.save(enfermeiro.getEspecialidade()));
@@ -65,19 +59,24 @@ public class EnfermeiroService {
 
             return enfermeiroRepository.save(enfermeiro);
         } catch (DataAccessException e) {
-            logger.error(ERRO_AO_CRIAR_MEDICO, e);
-            throw new UnprocessableEntityException(ERRO_AO_CRIAR_MEDICO);
+            logger.error(ERRO_AO_CRIAR_ENFERMEIRO, e);
+            throw new UnprocessableEntityException(ERRO_AO_CRIAR_ENFERMEIRO);
         }
     }
 
     public Enfermeiro atualizarEnfermeiro(Enfermeiro enfermeiro, UUID id) {
-    	Enfermeiro enfermeiroExistente = enfermeiroRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(ENFERMEIRO_NAO_ENCONTRADO));
+    	Enfermeiro enfermeiroExistente = buscarEnfermeiroPorId(id);
+        atualizarUsuarioEnfermeiro(enfermeiro, enfermeiroExistente);
+        atualizarEspecialidadeEnfermeiro(enfermeiro, enfermeiroExistente);
+        if (enfermeiroExistente.getCoren() != null) enfermeiroExistente.setCoren(enfermeiro.getCoren());
+        enfermeiroExistente.setUltimaAlteracao(now());
+        return saveEnfermeiro(enfermeiroExistente);
+    }
 
-        if (enfermeiro.getUsuario() != null) {
+	private void atualizarUsuarioEnfermeiro(Enfermeiro enfermeiro, Enfermeiro enfermeiroExistente) {
+		if (enfermeiro.getUsuario() != null) {
             Usuario usuarioExistente = enfermeiroExistente.getUsuario();
             Usuario usuarioAtualizado = enfermeiro.getUsuario();
-
             if (usuarioAtualizado.getNome() != null) usuarioExistente.setNome(usuarioAtualizado.getNome());
             if (usuarioAtualizado.getEmail() != null) usuarioExistente.setEmail(usuarioAtualizado.getEmail());
             if (usuarioAtualizado.getLogin() != null) usuarioExistente.setLogin(usuarioAtualizado.getLogin());
@@ -85,28 +84,28 @@ public class EnfermeiroService {
             if (usuarioAtualizado.getCpf() != null) usuarioExistente.setCpf(usuarioAtualizado.getCpf());
             if (usuarioAtualizado.getTelefone() != null) usuarioExistente.setTelefone(usuarioAtualizado.getTelefone());
             if (usuarioAtualizado.getDataNascimento() != null) usuarioExistente.setDataNascimento(usuarioAtualizado.getDataNascimento());
-            if (usuarioAtualizado.getUltimaAlteracao() != null) usuarioExistente.setUltimaAlteracao(LocalDateTime.now());
+            if (usuarioAtualizado.getUltimaAlteracao() != null) usuarioExistente.setUltimaAlteracao(now());
         }
-
-        if (enfermeiro.getEspecialidade() != null) {
-            Especialidade especialidadeExistente = enfermeiroExistente.getEspecialidade();
-            Especialidade especialidadeAtualizada = enfermeiro.getEspecialidade();
-            if (especialidadeAtualizada.getDescricao() != null) especialidadeExistente.setDescricao(especialidadeAtualizada.getDescricao());
-            if (especialidadeAtualizada.getUltimaAlteracao() != null) especialidadeExistente.setUltimaAlteracao(LocalDateTime.now());
-        }
-
-        if (enfermeiroExistente.getCoren() != null) enfermeiroExistente.setCoren(enfermeiro.getCoren());
-
-        enfermeiroExistente.setUltimaAlteracao(now());
-
-        try {
+	}
+	
+	private void atualizarEspecialidadeEnfermeiro(Enfermeiro enfermeiro, Enfermeiro enfermeiroExistente) {
+		if (enfermeiro.getEspecialidade() != null) {
+			Especialidade especialidadeExistente = enfermeiroExistente.getEspecialidade();
+			Especialidade especialidadeAtualizada = enfermeiro.getEspecialidade();
+			if (especialidadeAtualizada.getDescricao() != null) especialidadeExistente.setDescricao(especialidadeAtualizada.getDescricao());
+			if (especialidadeAtualizada.getUltimaAlteracao() != null) especialidadeExistente.setUltimaAlteracao(now());
+		}
+	}
+	
+	private Enfermeiro saveEnfermeiro(Enfermeiro enfermeiroExistente) {
+		try {
             return enfermeiroRepository.save(enfermeiroExistente);
         } catch (DataAccessException e) {
             logger.error(ERRO_AO_ALTERAR_ENFERMEIRO, e);
             throw new UnprocessableEntityException(ERRO_AO_ALTERAR_ENFERMEIRO);
         }
-    }
-
+	}
+	
     public void excluirEnfermeiroPorId(UUID id) {
         try {
             enfermeiroRepository.deleteById(id);
