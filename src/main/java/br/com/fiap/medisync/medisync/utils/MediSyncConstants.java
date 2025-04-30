@@ -30,6 +30,12 @@ public class MediSyncConstants {
     public static final String MEDICO_CRIADO_COM_SUCESSO = "Médico criado com sucesso.";
     public static final String ERRO_AO_DELETAR_MEDICO = "Erro ao deletar médico.";
 
+    public static final String ERRO_AO_ALTERAR_ENFERMEIRO = "Erro ao alterar Enfermeiro.";
+    public static final String ENFERMEIRO_NAO_ENCONTRADO = "Enfermeiro não encontrado.";
+    public static final String ERRO_AO_CRIAR_ENFERMEIRO = "Erro ao criar Enfermeiro.";
+    public static final String ENFERMEIRO_CRIADO_COM_SUCESSO = "Enfermeiro criado com sucesso.";
+    public static final String ERRO_AO_DELETAR_ENFERMEIRO = "Erro ao deletar Enfermeiro.";
+
     public static final String ID_INVALIDO = "ID inválido.";
     public static final String ID_NAO_ENCONTRADO = "ID não encontrado.";
 
