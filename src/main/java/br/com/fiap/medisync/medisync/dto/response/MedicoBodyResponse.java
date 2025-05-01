@@ -1,5 +1,6 @@
 package br.com.fiap.medisync.medisync.dto.response;
 
+import br.com.fiap.medisync.medisync.dto.EspecialidadeDTO;
 import br.com.fiap.medisync.medisync.dto.UsuarioDTO;
 import br.com.fiap.medisync.medisync.model.Medico;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,6 +21,9 @@ public class MedicoBodyResponse {
 
     @Schema(description = "Dados do usuário associado")
     private UsuarioDTO usuario;
+    
+    @Schema(description = "Dados da especialidade associada")
+    private EspecialidadeDTO especialidade;
 
     @Schema(description = "CRM do médico")
     private String crm;
@@ -27,6 +31,7 @@ public class MedicoBodyResponse {
     public MedicoBodyResponse(Medico medico) {
         this.id = medico.getId();
         this.usuario = medico.getUsuario() != null ? new UsuarioDTO(medico.getUsuario()) : null;
+        this.especialidade = medico.getEspecialidade() != null ? new EspecialidadeDTO(medico.getEspecialidade().getId(), medico.getEspecialidade().getDescricao()) : null;
         this.crm = medico.getCrm();
     }
 
