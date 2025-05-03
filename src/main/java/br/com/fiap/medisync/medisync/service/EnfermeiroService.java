@@ -7,6 +7,8 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.UUID;
 
+import br.com.fiap.medisync.medisync.model.Paciente;
+import br.com.fiap.medisync.medisync.repository.*;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
@@ -18,9 +20,6 @@ import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Enfermeiro;
 import br.com.fiap.medisync.medisync.model.Especialidade;
 import br.com.fiap.medisync.medisync.model.Usuario;
-import br.com.fiap.medisync.medisync.repository.EnfermeiroRepository;
-import br.com.fiap.medisync.medisync.repository.EspecialidadeRepository;
-import br.com.fiap.medisync.medisync.repository.UsuarioRepository;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -32,6 +31,8 @@ public class EnfermeiroService {
     private final EnfermeiroRepository enfermeiroRepository;  
     private final EspecialidadeRepository especialidadeRepository;
     private final UsuarioRepository usuarioRepository;
+    private final PacienteRepository pacienteRepository;
+    private final MedicoRepository medicoRepository;
 
     public Page<Enfermeiro> listarEnfermeiros(int page, int size) {
         return enfermeiroRepository.findAll(PageRequest.of(page, size));
@@ -107,8 +108,23 @@ public class EnfermeiroService {
 	}
 	
     public void excluirEnfermeiroPorId(UUID id) {
+        uuidValidator(id);
+
+        Enfermeiro enfermeiro = enfermeiroRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ENFERMEIRO_NAO_ENCONTRADO));
+
+        Usuario usuario = enfermeiro.getUsuario();
+        UUID usuarioId = usuario.getId();
+
         try {
             enfermeiroRepository.deleteById(id);
+
+            boolean usuarioVinculadoAMedico = medicoRepository.existsByUsuarioId(usuarioId);
+            boolean usuarioVinculadoAPaciente = pacienteRepository.existsByUsuarioId(usuarioId);
+
+            if (!usuarioVinculadoAMedico && !usuarioVinculadoAPaciente) {
+                usuarioRepository.deleteById(usuarioId);
+            }
         } catch (DataAccessException e) {
             logger.error(ERRO_AO_DELETAR_ENFERMEIRO, e);
             throw new UnprocessableEntityException(ERRO_AO_DELETAR_ENFERMEIRO);

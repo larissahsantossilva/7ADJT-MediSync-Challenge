@@ -4,10 +4,9 @@ import br.com.fiap.medisync.medisync.exception.ResourceNotFoundException;
 import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Especialidade;
 import br.com.fiap.medisync.medisync.model.Medico;
+import br.com.fiap.medisync.medisync.model.Paciente;
 import br.com.fiap.medisync.medisync.model.Usuario;
-import br.com.fiap.medisync.medisync.repository.EspecialidadeRepository;
-import br.com.fiap.medisync.medisync.repository.MedicoRepository;
-import br.com.fiap.medisync.medisync.repository.UsuarioRepository;
+import br.com.fiap.medisync.medisync.repository.*;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
@@ -30,6 +29,8 @@ public class MedicoService {
     private final MedicoRepository medicoRepository;
     private final EspecialidadeRepository especialidadeRepository;
     private final UsuarioRepository usuarioRepository;
+    private final PacienteRepository pacienteRepository;
+    private final EnfermeiroRepository enfermeiroRepository;
 
 
     public Page<Medico> listarMedicos(int page, int size) {
@@ -103,8 +104,23 @@ public class MedicoService {
     }
 
     public void excluirMedicoPorId(UUID id) {
+        uuidValidator(id);
+
+        Medico medico = medicoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(MEDICO_NAO_ENCONTRADO));
+
+        Usuario usuario = medico.getUsuario();
+        UUID usuarioId = usuario.getId();
+
         try {
             medicoRepository.deleteById(id);
+
+            boolean usuarioVinculadoAPaciente = pacienteRepository.existsByUsuarioId(usuarioId);
+            boolean usuarioVinculadoAEnfermeiro = enfermeiroRepository.existsByUsuarioId(usuarioId);
+
+            if (!usuarioVinculadoAPaciente && !usuarioVinculadoAEnfermeiro) {
+                usuarioRepository.deleteById(usuarioId);
+            }
         } catch (DataAccessException e) {
             logger.error(ERRO_AO_DELETAR_MEDICO, e);
             throw new UnprocessableEntityException(ERRO_AO_DELETAR_MEDICO);
