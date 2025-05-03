@@ -67,3 +67,6 @@ build/
 
 ### Diretórios do cache do Lombok ###
 .lombok/
+
+### Diretório do teste do allure report ###
+allure-results/
