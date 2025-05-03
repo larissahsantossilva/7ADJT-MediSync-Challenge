@@ -34,7 +34,7 @@ public class Enfermeiro {
     @Column(name = "id", nullable = false, unique = true)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUsuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_enfermeiro_usuario"))
     private Usuario usuario;
 

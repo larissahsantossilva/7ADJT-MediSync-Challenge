@@ -9,4 +9,5 @@ import br.com.fiap.medisync.medisync.model.Enfermeiro;
 
 @Repository
 public interface EnfermeiroRepository extends JpaRepository<Enfermeiro, UUID> {
+    boolean existsByUsuarioId(UUID id);
 }

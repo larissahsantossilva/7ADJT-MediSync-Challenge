@@ -19,7 +19,7 @@ public class Paciente {
     @Column(name = "id", nullable = false, unique = true)
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idUsuario", nullable = false, unique = true, foreignKey = @ForeignKey(name = "fk_paciente_usuario"))
     private Usuario usuario;
 
