@@ -61,7 +61,6 @@ public class EnfermeiroController {
         return ok(enfermeiroResponses);
     }
 
-
     @Operation(
             description = "Busca enfermeiro por id.",
             summary = "Busca enfermeiro por id.",

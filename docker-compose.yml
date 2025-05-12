@@ -14,9 +14,20 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"     # Porta para comunicação (broker)
+      - "15672:15672"   # Porta do painel de administração
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
   app:
     depends_on:
       - postgres
+      - rabbitmq
     build:
       context: .
       dockerfile: Dockerfile
@@ -30,5 +41,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 8080:8080
+
 volumes:
   postgres-data:
