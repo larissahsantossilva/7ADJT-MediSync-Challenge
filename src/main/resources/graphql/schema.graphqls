@@ -1,0 +1,43 @@
+enum ConsultaStatusGraphQL {
+    AGENDADA
+    REMARCADA
+    REALIZADA
+    CANCELADA
+}
+
+type Consulta {
+    id: ID!
+    observacao: String!
+    dataConsulta: String!
+    status: String!
+    criadoEm: String!
+    ultimaAlteracao: String!
+}
+
+type CriarConsultaResponse {
+    consultaId: ID!
+    message: String!
+}
+
+type AlterarConsultaResponse {
+    consultaId: String!
+    message: Int!
+}
+
+input ConsultaInput {
+    observacao: String!
+    dataConsulta: String!
+    status: String!
+    criadoEm: String!
+    ultimaAlteracao: String!
+}
+
+extend type Query {
+    listarConsultas: [Consulta!]!
+    buscarConsultasPorId(id: ID!): Consulta
+}
+
+extend type Mutation {
+    adicionarConsulta(consulta: ConsultaInput!): CriarConsultaResponse!
+    alterarConsulta(consulta: ConsultaInput!): AlterarConsultaResponse!
+}
