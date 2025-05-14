@@ -4,7 +4,6 @@ import br.com.fiap.medisync.medisync.exception.ResourceNotFoundException;
 import br.com.fiap.medisync.medisync.exception.UnprocessableEntityException;
 import br.com.fiap.medisync.medisync.model.Especialidade;
 import br.com.fiap.medisync.medisync.model.Medico;
-import br.com.fiap.medisync.medisync.model.Paciente;
 import br.com.fiap.medisync.medisync.model.Usuario;
 import br.com.fiap.medisync.medisync.repository.*;
 import lombok.AllArgsConstructor;

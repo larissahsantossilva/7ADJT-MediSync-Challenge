@@ -5,13 +5,13 @@ FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
 # Copia o arquivo pom.xml para o diretório de trabalho no container
-COPY MediSync/pom.xml /app/pom.xml
+COPY pom.xml /app/pom.xml
 
 # Baixa as dependências do Maven para preparar o ambiente offline
 RUN mvn dependency:go-offline
 
 # Copia o código-fonte para o container
-COPY MediSync/src /app/src
+COPY src /app/src
 
 # Realiza o build do projeto, criando o pacote JAR sem executar os testes
 RUN mvn clean package -DskipTests

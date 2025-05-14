@@ -25,14 +25,13 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
 
   app:
+    build:
+      context: ./MediSync
+      dockerfile: Dockerfile
+    container_name: java_app
     depends_on:
       - postgres
       - rabbitmq
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    container_name: java_app
-    image: medisync
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
@@ -42,9 +41,10 @@ services:
     ports:
       - 8080:8080
 
+
   notificacao:
     build:
-      context: ./notificacao
+      context: ./notificacao-service
       dockerfile: Dockerfile
     container_name: notificacao_app
     depends_on:

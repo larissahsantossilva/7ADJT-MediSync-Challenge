@@ -7,7 +7,6 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.UUID;
 
-import br.com.fiap.medisync.medisync.model.Paciente;
 import br.com.fiap.medisync.medisync.repository.*;
 import org.slf4j.Logger;
 import org.springframework.dao.DataAccessException;
