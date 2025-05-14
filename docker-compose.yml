@@ -18,8 +18,8 @@ services:
     image: rabbitmq:3.12-management
     container_name: rabbitmq
     ports:
-      - "5672:5672"     # Porta para comunicação (broker)
-      - "15672:15672"   # Porta do painel de administração
+      - "5672:5672"
+      - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -29,7 +29,7 @@ services:
       - postgres
       - rabbitmq
     build:
-      context: .
+      context: ..
       dockerfile: Dockerfile
     container_name: java_app
     image: medisync
@@ -41,6 +41,27 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 8080:8080
+
+  notificacao:
+    build:
+      context: ./notificacao
+      dockerfile: Dockerfile
+    container_name: notificacao_app
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+    ports:
+      - 8081:8080
 
 volumes:
   postgres-data:
