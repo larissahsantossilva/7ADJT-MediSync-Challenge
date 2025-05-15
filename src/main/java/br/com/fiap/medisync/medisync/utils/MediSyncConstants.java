@@ -39,4 +39,8 @@ public class MediSyncConstants {
     public static final String ID_INVALIDO = "ID inválido.";
     public static final String ID_NAO_ENCONTRADO = "ID não encontrado.";
 
+    public static final String ERRO_AO_ALTERAR_CONSULTA = "Erro ao alterar Enfermeiro.";
+    public static final String CONSULTA_NAO_ENCONTRADA = "Enfermeiro não encontrado.";
+    public static final String ERRO_AO_CRIAR_CONSULTA = "Erro ao criar Enfermeiro.";
+    public static final String CONSULTA_CRIADA_COM_SUCESSO = "Enfermeiro criado com sucesso.";
 }

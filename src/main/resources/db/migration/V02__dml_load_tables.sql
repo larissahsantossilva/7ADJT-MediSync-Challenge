@@ -114,7 +114,7 @@ VALUES (
            (SELECT id FROM unidade_saude WHERE nome = 'Posto Central'),
            'Consulta de rotina com exame clínico',
            CURRENT_TIMESTAMP + INTERVAL '1 day',
-           'Agendada',
+           'AGENDADA',
            CURRENT_TIMESTAMP,
            CURRENT_TIMESTAMP
        );
