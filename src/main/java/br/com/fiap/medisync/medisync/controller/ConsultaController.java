@@ -4,6 +4,8 @@ import br.com.fiap.medisync.medisync.dto.ConsultaDTO;
 import br.com.fiap.medisync.medisync.model.Consulta;
 import br.com.fiap.medisync.medisync.service.ConsultaService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -18,9 +20,11 @@ import java.util.UUID;
 public class ConsultaController {
 
   private final ConsultaService consultaService;
+  private static final Logger logger = LoggerFactory.getLogger(ConsultaController.class);
   
   @QueryMapping
   public ConsultaDTO buscarConsultaPorId(@Argument UUID id){
+    logger.info("Buscando consulta com id: {}", id);
     Consulta consulta = consultaService.buscarConsultaPorId(id);
     return new ConsultaDTO(consulta);
   }

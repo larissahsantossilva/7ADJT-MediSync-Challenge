@@ -34,7 +34,7 @@ input ConsultaInput {
 
 extend type Query {
     listarConsultas: [Consulta!]!
-    buscarConsultasPorId(id: ID!): Consulta
+    buscarConsultaPorId(id: ID!): Consulta
 }
 
 extend type Mutation {
