@@ -14,7 +14,7 @@
 
 	<groupId>br.com.fiap.medisync.notificacao</groupId>
 	<artifactId>notificacao-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>notificacao-service</name>
 	<description>Serviço de Notificações do MediSync</description>
 
