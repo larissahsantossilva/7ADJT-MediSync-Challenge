@@ -14,7 +14,7 @@ import org.springframework.graphql.data.method.annotation.SchemaMapping;
 @AllArgsConstructor
 @Schema(description = "DTO para criação de um nova Consulta")
 @SchemaMapping("ConsultaInput")
-public class ConsultaBodyRequest {
+public class CriarConsultaBodyRequest {
 
     @NotBlank(message = "O ID do Paciente é obrigatório")
     @Schema(description = "ID do Paciente associado", example = "123e4567-e89b-12d3-a456-426614174000", requiredMode = Schema.RequiredMode.REQUIRED)

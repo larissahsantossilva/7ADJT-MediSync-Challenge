@@ -25,30 +25,40 @@ type Consulta {
 }
 
 type CriarConsultaResponse {
-    consultaId: ID!
+    consultaId: String
     message: String!
 }
 
 type AtualizarConsultaResponse {
-    consultaId: String!
-    message: Int!
+    consultaId: String
+    message: String!
 }
 
 input ConsultaInput {
-    idPaciente: String
-    idMedico: String
-    idEnfermeiro: String
-    idUnidadeBasicaSaude: String
-    observacao: String
-    dataConsulta: String
+    idPaciente: String!
+    idMedico: String!
+    idEnfermeiro: String!
+    idUnidadeBasicaSaude: String!
+    observacao: String!
+    dataConsulta: String!
+}
+
+input AtualizarConsultaBodyRequest {
+    idPaciente: String!
+    idMedico: String!
+    idEnfermeiro: String!
+    idUnidadeBasicaSaude: String!
+    observacao: String!
+    dataConsulta: String!
+    status: String!
 }
 
 extend type Query {
-    listarConsultas: [Consulta!]!
+    listarConsultas(pagina: Int, tamanho: Int): [Consulta!]
     buscarConsultaPorId(id: ID!): Consulta
 }
 
 extend type Mutation {
-    criarConsulta(consulta: ConsultaInput): CriarConsultaResponse
-    atualizarConsulta(consulta: ConsultaInput): AtualizarConsultaResponse
+    criarConsulta(consulta: ConsultaInput!): CriarConsultaResponse
+    atualizarConsulta(id: ID!, consulta: AtualizarConsultaBodyRequest!): AtualizarConsultaResponse
 }
