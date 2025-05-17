@@ -43,4 +43,6 @@ public class MediSyncConstants {
     public static final String CONSULTA_NAO_ENCONTRADA = "Enfermeiro não encontrado.";
     public static final String ERRO_AO_CRIAR_CONSULTA = "Erro ao criar Enfermeiro.";
     public static final String CONSULTA_CRIADA_COM_SUCESSO = "Enfermeiro criado com sucesso.";
+
+    public static final String UNIDADE_BASICA_SAUDE_NAO_ENCONTRADO = "Unidade básica de saúde não encontrada.";
 }

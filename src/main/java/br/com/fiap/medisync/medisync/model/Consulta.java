@@ -1,10 +1,7 @@
 package br.com.fiap.medisync.medisync.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,6 +13,8 @@ import static jakarta.persistence.GenerationType.AUTO;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@ToString
 @Table(name = "consulta", schema = "medisync")
 public class Consulta {
     @Id

@@ -7,6 +7,16 @@ enum ConsultaStatusGraphQL {
 
 type Consulta {
     id: ID!
+    nomePaciente: String!
+    cpfPaciente: String!
+    nomeMedico: String!
+    crmMedico: String!
+    descricaoEspecialidadeMedico: String!
+    nomeEnfermeiro: String!
+    corenEnfermeiro: String!
+    descricaoEspecialidadeEnfermeiro: String!
+    nomeUnidadeBasicaSaude: String!
+    endereco: String!
     observacao: String!
     dataConsulta: String!
     status: String!
@@ -19,17 +29,18 @@ type CriarConsultaResponse {
     message: String!
 }
 
-type AlterarConsultaResponse {
+type AtualizarConsultaResponse {
     consultaId: String!
     message: Int!
 }
 
 input ConsultaInput {
-    observacao: String!
-    dataConsulta: String!
-    status: String!
-    criadoEm: String!
-    ultimaAlteracao: String!
+    idPaciente: String
+    idMedico: String
+    idEnfermeiro: String
+    idUnidadeBasicaSaude: String
+    observacao: String
+    dataConsulta: String
 }
 
 extend type Query {
@@ -38,6 +49,6 @@ extend type Query {
 }
 
 extend type Mutation {
-    adicionarConsulta(consulta: ConsultaInput!): CriarConsultaResponse!
-    alterarConsulta(consulta: ConsultaInput!): AlterarConsultaResponse!
+    criarConsulta(consulta: ConsultaInput): CriarConsultaResponse
+    atualizarConsulta(consulta: ConsultaInput): AtualizarConsultaResponse
 }
