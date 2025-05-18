@@ -26,7 +26,7 @@ services:
 
   app:
     build:
-      context: ./MediSync
+      context: app-service
       dockerfile: Dockerfile
     container_name: java_app
     depends_on:
@@ -40,7 +40,6 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 8080:8080
-
 
   notificacao:
     build:
