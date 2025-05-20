@@ -4,15 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
-		<relativePath/>
+		<groupId>br.com.fiap.medisync</groupId>
+		<artifactId>medisync</artifactId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<groupId>br.com.fiap.medisync.notificacao</groupId>
 	<artifactId>notificacao-service</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
 	<name>notificacao-service</name>
 	<description>Serviço de Notificações do MediSync</description>
 
