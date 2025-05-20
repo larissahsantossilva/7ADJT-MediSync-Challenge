@@ -1,7 +1,7 @@
 package br.com.fiap.medisync.notificacao.messaging;
 
-import br.com.fiap.medisync.notificacao.config.RabbitMQConfig;
-import br.com.fiap.medisync.notificacao.dto.ConsultaStatusMessageDTO;
+import br.com.fiap.medisync.notificacao.configuration.RabbitMQConfig;
+import br.com.fiap.medisync.notificacao.dto.NotificacaoEventoDTO;
 import br.com.fiap.medisync.notificacao.model.Notificacao;
 import br.com.fiap.medisync.notificacao.repository.NotificacaoRepository;
 import jakarta.validation.Valid;
@@ -18,21 +18,12 @@ public class NotificacaoListener {
     @Autowired
     private NotificacaoRepository notificacaoRepository;
 
-    /*
-     * Método que escuta as mensagens na fila configurada no RabbitMQ.
-     * Quando uma mensagem é recebida, ela é convertida para o objeto ConsultaStatusMessageDTO
-     * e salva no banco de dados como uma nova Notificacao.
-     *
-     * @param mensagem A mensagem recebida do RabbitMQ, convertida para o objeto ConsultaStatusMessageDTO.
-     *
-     * Arquitetura event-driven: O microserviço Notificacao é acionado por eventos (mensagens) que chegam através do RabbitMQ.
-    * */
-    @RabbitListener(queues = RabbitMQConfig.QUEUE,  errorHandler = "notificacaoErrorHandler") // Ouve as mensagens na fila configurada
-    public void receberMensagem(@Payload @Valid ConsultaStatusMessageDTO mensagem) {
+    @RabbitListener(queues = RabbitMQConfig.QUEUE,  errorHandler = "notificacaoErrorHandler")
+    public void receberMensagem(@Payload @Valid NotificacaoEventoDTO mensagem) {
 
         Notificacao notificacao = new Notificacao();
-        notificacao.setIdConsulta(mensagem.getIdConsulta());
-        notificacao.setIdPaciente(mensagem.getIdPaciente());
+        notificacao.setConsultaId(mensagem.getConsultaId());
+        notificacao.setPacienteId(mensagem.getPacienteId());
         notificacao.setMensagem(mensagem.getMensagem());
         notificacao.setDataEnvio(mensagem.getDataConsulta());
         notificacao.setCriadoEm(LocalDateTime.now());

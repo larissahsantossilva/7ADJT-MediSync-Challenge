@@ -26,10 +26,10 @@ public class Notificacao {
 	private UUID id;
 
 	@Column(name = "id_paciente", nullable = false)
-	private UUID idPaciente;
+	private UUID pacienteId;
 
 	@Column(name = "id_consulta", nullable = false)
-	private UUID idConsulta;
+	private UUID consultaId;
 
 	@Column(name = "mensagem", nullable = false)
 	private String mensagem;
