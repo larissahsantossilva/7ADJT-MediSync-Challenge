@@ -12,10 +12,10 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>notificacao-service</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
-	<name>notificacao-service</name>
-	<description>Serviço de Notificações do MediSync</description>
+	<artifactId>app-service</artifactId>
+	<version>1.1-SNAPSHOT</version>
+	<name>app-service</name>
+	<description>Serviço MediSync</description>
 
 	<properties>
 		<java.version>21</java.version>
@@ -136,7 +136,6 @@
 					</annotationProcessorPaths>
 					<source>21</source>
 					<target>21</target>
-					<compilerArgs>--enable-preview</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>

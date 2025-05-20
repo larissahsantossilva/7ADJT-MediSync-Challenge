@@ -12,6 +12,7 @@
 
 	<artifactId>notificacao-service</artifactId>
 	<name>notificacao-service</name>
+	<version>1.0-SNAPSHOT</version>
 	<description>Serviço de Notificações do MediSync</description>
 
 	<properties>
