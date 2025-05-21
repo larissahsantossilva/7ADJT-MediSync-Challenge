@@ -26,8 +26,8 @@ services:
 
   app:
     build:
-      context: app-service
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: app-service/Dockerfile
     container_name: java_app
     depends_on:
       - postgres
@@ -43,8 +43,8 @@ services:
 
   notificacao:
     build:
-      context: ./notificacao-service
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: notificacao-service/Dockerfile
     container_name: notificacao_app
     depends_on:
       - postgres
