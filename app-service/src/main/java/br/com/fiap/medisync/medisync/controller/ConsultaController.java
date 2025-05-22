@@ -25,7 +25,7 @@ public class ConsultaController {
 
   private final ConsultaService consultaService;
   private static final Logger logger = LoggerFactory.getLogger(ConsultaController.class);
-  
+
   @QueryMapping
   public ConsultaDTO buscarConsultaPorId(@Argument UUID id){
     logger.info("Buscando consulta com id: {}", id);

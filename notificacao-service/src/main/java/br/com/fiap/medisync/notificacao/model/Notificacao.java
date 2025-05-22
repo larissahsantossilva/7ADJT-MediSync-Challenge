@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -35,7 +34,7 @@ public class Notificacao {
 	private String mensagem;
 
 	@Column(name = "data_envio", nullable = false)
-	private LocalDate dataEnvio;
+	private LocalDateTime dataEnvio;
 
     @Column(name = "criado_em", nullable = false)
     private LocalDateTime criadoEm = now();
