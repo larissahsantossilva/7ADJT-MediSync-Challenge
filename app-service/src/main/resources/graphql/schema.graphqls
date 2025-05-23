@@ -1,0 +1,64 @@
+enum ConsultaStatusGraphQL {
+    AGENDADA
+    REMARCADA
+    REALIZADA
+    CANCELADA
+}
+
+type Consulta {
+    id: ID!
+    nomePaciente: String!
+    cpfPaciente: String!
+    nomeMedico: String!
+    crmMedico: String!
+    descricaoEspecialidadeMedico: String!
+    nomeEnfermeiro: String!
+    corenEnfermeiro: String!
+    descricaoEspecialidadeEnfermeiro: String!
+    nomeUnidadeBasicaSaude: String!
+    endereco: String!
+    observacao: String!
+    dataConsulta: String!
+    status: String!
+    criadoEm: String!
+    ultimaAlteracao: String!
+}
+
+type CriarConsultaResponse {
+    consultaId: String
+    message: String!
+}
+
+type AtualizarConsultaResponse {
+    consultaId: String
+    message: String!
+}
+
+input ConsultaInput {
+    idPaciente: String!
+    idMedico: String!
+    idEnfermeiro: String!
+    idUnidadeBasicaSaude: String!
+    observacao: String!
+    dataConsulta: String!
+}
+
+input AtualizarConsultaBodyRequest {
+    idPaciente: String!
+    idMedico: String!
+    idEnfermeiro: String!
+    idUnidadeBasicaSaude: String!
+    observacao: String!
+    dataConsulta: String!
+    status: String!
+}
+
+extend type Query {
+    listarConsultas(pagina: Int, tamanho: Int): [Consulta!]
+    buscarConsultaPorId(id: ID!): Consulta
+}
+
+extend type Mutation {
+    criarConsulta(consulta: ConsultaInput!): CriarConsultaResponse
+    atualizarConsulta(id: ID!, consulta: AtualizarConsultaBodyRequest!): AtualizarConsultaResponse
+}
