@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -16,6 +16,6 @@ public class NotificacaoEventoDTO {
     private UUID consultaId;
     private UUID pacienteId;
     private String status;
-    private LocalDate dataConsulta;
+    private LocalDateTime dataConsulta;
     private String mensagem;
 }
