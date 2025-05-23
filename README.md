@@ -81,7 +81,7 @@ Documentação disponível via Swagger:
 
 URL de acesso local: [http://localhost:8080/graphql](http://localhost:8080/graphql)
 
-### Exemplos de Queries:
+### Exemplos de Queries (ajustar valores de acordo com a inicialização de carga):
 ```graphql
 mutation MyMutation {
   criarConsulta(
@@ -150,10 +150,4 @@ Você pode acessar e importar a coleção através do link abaixo:
 🔗 [Clique aqui para abrir a Collection no Postman](https://speeding-station-415931.postman.co/workspace/fiap~d52dd68e-4865-4739-92da-bc6c1068d122/collection/43173766-55416f52-7f1f-4114-bbcd-47303d929fca?action=share&creator=28466598)
 
 ---
-
-## 📁 Repositório do Código
-
-Todo o código-fonte do projeto está disponível no GitHub:
-
-🔗 [Acessar Repositório no GitHub](https://github.com/larissahsantossilva/7ADJT-MediSync-Challenge)  
 
