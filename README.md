@@ -57,13 +57,23 @@ Documentação disponível via Swagger:
 
 ### Exemplos de Endpoints
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET    | `/api/v1/pacientes` | Lista pacientes |
-| POST   | `/api/v1/pacientes` | Cria paciente |
-| PUT    | `/api/v1/pacientes/{id}` | Atualiza paciente |
-| DELETE | `/api/v1/pacientes/{id}` | Remove paciente |
-| ...    | ...      | ...       |
+| Método | Endpoint | Descrição          |
+|--------|----------|--------------------|
+| GET | `/api/v1/pacientes/{id}` | Lista paciente por Id |
+| GET    | `/api/v1/pacientes` | Lista pacientes    |
+| POST   | `/api/v1/pacientes` | Cria paciente      |
+| PUT    | `/api/v1/pacientes/{id}` | Atualiza paciente  |
+| DELETE | `/api/v1/pacientes/{id}` | Remove paciente    |
+| GET | `/api/v1/enfermeiros/{id}` | Lista enfermeiro por Id |
+| GET    | `/api/v1/enfermeiros` | Lista enfermeiros  |
+| POST   | `/api/v1/enfermeiros` | Cria enfermeiro    |
+| PUT    | `/api/v1/enfermeiros/{id}` | Atualiza enfermeiro |
+| DELETE | `/api/v1/enfermeiros/{id}` | Remove enfermeiros |
+| GET | `/api/v1/medicos/{id}` | Lista medico por Id |
+| GET    | `/api/v1/medicos` | Lista medicos  |
+| POST   | `/api/v1/medicos` | Cria medico     |
+| PUT    | `/api/v1/medicos/{id}` | Atualiza medico |
+| DELETE | `/api/v1/medicos/{id}` | Remove medico   |
 
 ---
 
@@ -73,12 +83,34 @@ URL de acesso local: [http://localhost:8080/graphql](http://localhost:8080/graph
 
 ### Exemplos de Queries:
 ```graphql
-query {
-  listarConsultas {
-    id
-    nomePaciente
-    dataHora
-    nomeMedico
+mutation MyMutation {
+  criarConsulta(
+    consulta: {
+    idPaciente: "09013b96-29a0-4146-9d20-2ca3153e6a5b", 
+    idMedico: "2005c5b0-8300-4bd0-8bf5-01871ca930fc", 
+    idEnfermeiro: "f1515c9a-768b-42c7-9d81-322f3ca64dd0", 
+    idUnidadeBasicaSaude: "f754cea0-bad6-4cba-9ef4-14ded89e80d7", 
+    observacao: "Observação testando 4", 
+    dataConsulta: "2025-05-04 18:00:00"}
+  ) {
+    consultaId
+    message
+  }
+}
+
+mutation MyMutation {
+  atualizarConsulta(
+    consulta: {
+    idPaciente: "09013b96-29a0-4146-9d20-2ca3153e6a5b", 
+    idMedico: "2005c5b0-8300-4bd0-8bf5-01871ca930fc", 
+    idEnfermeiro: "f1515c9a-768b-42c7-9d81-322f3ca64dd0", 
+    idUnidadeBasicaSaude: "f754cea0-bad6-4cba-9ef4-14ded89e80d7", 
+    observacao: "Observação testando 1", dataConsulta: "2025-05-04 18:00:00" 
+    status: "CANCELADA"}
+    id: "a51305f5-ed19-4467-b78d-0a7fb20e4ab1"
+  ){
+    consultaId
+    message
   }
 }
 ```
