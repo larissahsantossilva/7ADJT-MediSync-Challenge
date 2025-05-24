@@ -1,4 +1,4 @@
-package br.com.fiap.medisync.notificacao.messaging;
+package br.com.fiap.medisync.notificacao.service;
 
 import br.com.fiap.medisync.notificacao.configuration.RabbitMQConfig;
 import br.com.fiap.medisync.notificacao.dto.NotificacaoEventoDTO;
